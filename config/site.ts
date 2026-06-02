@@ -101,6 +101,9 @@ export const latestDrop = {
   },
 } as const;
 
+/** Alias for older imports / hot-reload cache */
+export const latestVisual = latestDrop;
+
 export const featuredRelease = {
   title: latestDrop.title,
   subtitle: latestDrop.subtitle,
