@@ -43,6 +43,12 @@
     pointer-events: none;
   }
 
+  .hero-text-shadow {
+    text-shadow:
+      0 2px 20px rgba(0, 0, 0, 0.95),
+      0 4px 40px rgba(0, 0, 0, 0.7);
+  }
+
   .hero-light-sweep {
     background: linear-gradient(
       105deg,
@@ -58,13 +64,6 @@
     animation: heroSweep 9s ease-in-out infinite;
   }
 
-  .hero-smoke-glow {
-    background: radial-gradient(
-      ellipse 70% 50% at 50% 40%,
-      rgba(200, 200, 200, 0.07),
-      transparent 70%
-    );
-  }
 }
 
 @layer utilities {
