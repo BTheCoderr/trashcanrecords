@@ -10,6 +10,8 @@ export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState<boolean>(hero.muted);
   const showVideo = hero.videoEnabled && hero.videoSrc;
+  const showHeroCopy =
+    hero.showHeroCopy && !(showVideo && hero.videoHasTitleCards);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -28,7 +30,7 @@ export function Hero() {
         {showVideo ? (
           <video
             ref={videoRef}
-            className="h-full w-full scale-[1.02] object-cover object-[center_40%] sm:object-[center_38%]"
+            className="h-full w-full scale-[1.03] object-cover object-[center_18%] sm:object-[center_16%]"
             autoPlay={hero.autoplay}
             muted={isMuted}
             loop={hero.loop}
@@ -83,27 +85,39 @@ export function Hero() {
         </button>
       )}
 
-      {/* Bottom strip: text + CTAs — video breathes above */}
+      {/* Bottom: CTAs only — no grey title panels over the video */}
       <div className="relative z-10 mt-auto w-full">
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%] min-h-[280px] bg-gradient-to-t from-void from-30% via-void/70 to-transparent sm:h-[38%]"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[32%] min-h-[200px] bg-gradient-to-t from-void/95 from-20% via-void/40 to-transparent sm:h-[28%]"
           aria-hidden
         />
 
-        <div className="relative flex flex-col items-center px-5 pb-28 pt-16 text-center sm:px-6 sm:pb-32 sm:pt-20">
-          <p className="hero-text-shadow mb-2 font-sans text-[10px] font-medium uppercase tracking-[0.4em] text-pearl/80">
-            {brand.label}
-          </p>
+        <div
+          className={`relative flex flex-col items-center px-5 text-center sm:px-6 ${
+            showHeroCopy ? "pb-28 pt-10 sm:pb-32 sm:pt-12" : "pb-28 pt-6 sm:pb-32"
+          }`}
+        >
+          {showHeroCopy && (
+            <>
+              <p className="hero-text-shadow mb-2 font-sans text-[10px] font-medium uppercase tracking-[0.4em] text-pearl/80">
+                {brand.label}
+              </p>
 
-          <h1 className="hero-text-shadow font-display text-4xl font-medium tracking-[0.14em] chrome-gradient-text sm:text-5xl md:text-6xl">
-            {brand.artist}
-          </h1>
+              <h1 className="hero-text-shadow mx-auto w-fit font-display text-4xl font-medium tracking-[0.14em] chrome-gradient-text sm:text-5xl md:text-6xl">
+                {brand.artist}
+              </h1>
 
-          <p className="hero-text-shadow mx-auto mt-3 max-w-sm text-sm leading-relaxed text-pearl/85 sm:max-w-md">
-            {brand.tagline}
-          </p>
+              <p className="hero-text-shadow mx-auto mt-3 max-w-sm text-sm leading-relaxed text-pearl/85 sm:max-w-md">
+                {brand.tagline}
+              </p>
+            </>
+          )}
 
-          <div className="mt-7 flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:justify-center">
+          <div
+            className={`flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:justify-center ${
+              showHeroCopy ? "mt-7" : "mt-0"
+            }`}
+          >
             {heroCTAs.watchVisual.active && (
               <LinkButton
                 href={heroCTAs.watchVisual.href}

@@ -82,6 +82,10 @@ export const hero = {
   autoplay: true,
   muted: true,
   loop: true,
+  /** Video includes title cards — keep false to avoid duplicate copy over the visual */
+  videoHasTitleCards: true,
+  /** Plain text at bottom (no background panels). Off when videoHasTitleCards if you crop titles out. */
+  showHeroCopy: true,
 } as const;
 
 export const heroCTAs = {
