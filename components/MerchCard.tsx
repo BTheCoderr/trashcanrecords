@@ -2,6 +2,7 @@ import { LinkButton } from "./LinkButton";
 
 type MerchCardProps = {
   title: string;
+  titleFull?: string;
   price: string;
   image?: string;
   shopUrl: string;
@@ -11,12 +12,15 @@ type MerchCardProps = {
 
 export function MerchCard({
   title,
+  titleFull,
   price,
   image,
   shopUrl,
   available,
   notifyLabel = "Notify Me",
 }: MerchCardProps) {
+  const displayTitle = titleFull ?? title;
+
   return (
     <article className="group flex flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-smoke/40 transition-all duration-300 hover:border-white/12 hover:shadow-card">
       <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-b from-ash to-void">
@@ -24,15 +28,12 @@ export function MerchCard({
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={image}
-            alt={title}
+            alt={displayTitle}
             className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
           />
         ) : (
-          <div className="flex h-full w-full flex-col items-center justify-center gap-3 p-6">
-            <div className="h-24 w-24 rounded-lg border border-dashed border-white/10 bg-white/[0.02]" />
-            <span className="text-[10px] uppercase tracking-[0.25em] text-chrome/40">
-              Product Image
-            </span>
+          <div className="flex h-full w-full items-center justify-center p-6">
+            <div className="h-24 w-24 rounded-lg border border-dashed border-white/10" />
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-void/50 via-transparent to-transparent" />
@@ -42,8 +43,8 @@ export function MerchCard({
           </span>
         )}
       </div>
-      <div className="flex flex-1 flex-col p-4">
-        <h3 className="font-medium leading-snug text-pearl">{title}</h3>
+      <div className="flex flex-1 flex-col p-4 sm:p-5">
+        <h3 className="font-medium leading-snug text-pearl">{displayTitle}</h3>
         <p className="mt-1 font-display text-lg tracking-wide text-chrome">{price}</p>
         <div className="mt-auto pt-4">
           {available ? (

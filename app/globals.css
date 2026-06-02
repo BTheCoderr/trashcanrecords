@@ -13,6 +13,10 @@
     @apply bg-void text-chrome antialiased;
   }
 
+  .section-space {
+    @apply relative px-5 py-14 sm:px-6 sm:py-16 md:py-20 lg:py-24;
+  }
+
   ::selection {
     @apply bg-silver/20 text-pearl;
   }

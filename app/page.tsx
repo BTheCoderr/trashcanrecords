@@ -1,5 +1,5 @@
 import { Hero } from "@/components/Hero";
-import { ReleaseCard } from "@/components/ReleaseCard";
+import { LatestDropSection } from "@/components/LatestDropSection";
 import { MusicLinkCard } from "@/components/MusicLinkCard";
 import { VideoCard } from "@/components/VideoCard";
 import { MerchCard } from "@/components/MerchCard";
@@ -7,10 +7,11 @@ import { SocialLinks } from "@/components/SocialLinks";
 import { EmailSignup } from "@/components/EmailSignup";
 import { ContactBooking } from "@/components/ContactBooking";
 import { Footer } from "@/components/Footer";
+import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { SectionHeader } from "@/components/SectionHeader";
 import {
   brand,
-  featuredRelease,
+  emailSignup,
   musicLinks,
   videoLinks,
   merchItems,
@@ -19,123 +20,109 @@ import {
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-x-hidden">
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_100%_80%_at_50%_0%,rgba(30,30,30,0.5),transparent_50%)]" />
+    <>
+      <main className="relative min-h-screen overflow-x-hidden pb-24 md:pb-0">
+        <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_100%_80%_at_50%_0%,rgba(30,30,30,0.5),transparent_50%)]" />
 
-      <Hero />
+        <Hero />
+        <LatestDropSection />
 
-      <section
-        id="latest-drop"
-        className="relative px-4 py-12 md:py-20"
-        aria-labelledby="latest-drop-heading"
-      >
-        <div className="mx-auto max-w-4xl">
-          <SectionHeader
-            eyebrow="New music"
-            title="Latest Drop"
-            subtitle="Stream it or watch the clay visual."
-            id="latest-drop-heading"
-          />
-          <ReleaseCard
-            title={featuredRelease.title}
-            subtitle={featuredRelease.subtitle}
-            badge={featuredRelease.badge}
-            coverImage={featuredRelease.coverImage}
-            links={featuredRelease.links}
-            buttonLabels={featuredRelease.buttonLabels}
-          />
-        </div>
-      </section>
-
-      <section id="music" className="relative px-4 py-16 md:py-20">
-        <div className="mx-auto max-w-lg">
-          <SectionHeader
-            eyebrow="Stream"
-            title="Music"
-            subtitle="Every platform. One artist."
-          />
-          <div className="flex flex-col gap-3">
-            {musicLinks.map((link) => (
-              <MusicLinkCard
-                key={link.id}
-                name={link.name}
-                href={link.href}
-                description={link.description}
-                highlight={"highlight" in link && link.highlight}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="videos" className="relative px-4 py-16 md:py-20">
-        <div className="mx-auto max-w-4xl">
-          <SectionHeader
-            eyebrow="More to watch"
-            title="Visuals"
-            subtitle="Clay animation teaser and the full channel."
-          />
-          <div className="grid gap-5 sm:grid-cols-2">
-            {videoLinks.map((video) => (
-              <VideoCard
-                key={video.id}
-                title={video.title}
-                description={video.description}
-                href={video.href}
-                badge={"badge" in video ? video.badge : undefined}
-                thumbnailUrl={"thumbnailUrl" in video ? video.thumbnailUrl : undefined}
-                buttonLabel={"buttonLabel" in video ? video.buttonLabel : undefined}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="merch" className="relative px-4 py-16 md:py-20">
-        <div className="mx-auto max-w-3xl">
-          <SectionHeader
-            eyebrow="Wear the label"
-            title="Merch"
-            subtitle="Trash Can Records tees — dropping soon."
-          />
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {merchItems
-              .filter((item) => item.active)
-              .map((item) => (
-                <MerchCard
-                  key={item.id}
-                  title={item.title}
-                  price={item.price}
-                  image={item.image}
-                  shopUrl={item.shopUrl}
-                  available={item.available}
-                  notifyLabel={"notifyLabel" in item ? item.notifyLabel : "Notify Me"}
+        <section id="music" className="section-space scroll-mt-4">
+          <div className="mx-auto max-w-lg">
+            <SectionHeader
+              eyebrow="Stream"
+              title="Music"
+              subtitle="Every platform. One artist."
+            />
+            <div className="flex flex-col gap-3">
+              {musicLinks.map((link) => (
+                <MusicLinkCard
+                  key={link.id}
+                  name={link.name}
+                  href={link.href}
+                  description={link.description}
+                  highlight={"highlight" in link && link.highlight}
                 />
               ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="social" className="relative px-4 py-16 md:py-20">
-        <div className="mx-auto max-w-lg">
-          <SectionHeader
-            eyebrow="Connect"
-            title="Follow"
-            subtitle={`Stay close to ${brand.artist} and ${brand.label}.`}
-          />
-          <SocialLinks links={socialLinks} />
-        </div>
-      </section>
+        {videoLinks.length > 0 && (
+          <section id="videos" className="section-space scroll-mt-4">
+            <div className="mx-auto max-w-4xl">
+              <SectionHeader
+                eyebrow="More to watch"
+                title="Visuals"
+                subtitle="Subscribe for more from Trash Can Records."
+              />
+              <div className="grid gap-5 sm:grid-cols-2">
+                {videoLinks.map((video) => (
+                  <VideoCard
+                    key={video.id}
+                    title={video.title}
+                    description={video.description}
+                    href={video.href}
+                    buttonLabel={video.buttonLabel}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
-      <section id="join" className="relative px-4 py-16 md:py-20">
-        <div className="mx-auto max-w-xl">
-          <EmailSignup />
-        </div>
-      </section>
+        <section id="merch" className="section-space scroll-mt-4">
+          <div className="mx-auto max-w-3xl">
+            <SectionHeader
+              eyebrow="Wear the label"
+              title="Merch"
+              subtitle="Trash Can Records tees — dropping soon."
+            />
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {merchItems
+                .filter((item) => item.active)
+                .map((item) => (
+                  <MerchCard
+                    key={item.id}
+                    title={item.title}
+                    titleFull={"titleFull" in item ? item.titleFull : undefined}
+                    price={item.price}
+                    image={item.image}
+                    shopUrl={item.shopUrl}
+                    available={item.available}
+                    notifyLabel={
+                      "notifyLabel" in item ? item.notifyLabel : "Notify Me"
+                    }
+                  />
+                ))}
+            </div>
+          </div>
+        </section>
 
-      <ContactBooking />
+        <section id="social" className="section-space scroll-mt-4">
+          <div className="mx-auto max-w-lg">
+            <SectionHeader
+              eyebrow="Connect"
+              title="Follow"
+              subtitle={`Stay close to ${brand.artist} and ${brand.label}.`}
+            />
+            <SocialLinks links={socialLinks} />
+          </div>
+        </section>
 
-      <Footer />
-    </main>
+        {emailSignup.active && (
+          <section id="join" className="section-space scroll-mt-4">
+            <div className="mx-auto max-w-xl">
+              <EmailSignup />
+            </div>
+          </section>
+        )}
+
+        <ContactBooking />
+        <Footer />
+      </main>
+
+      <MobileStickyBar />
+    </>
   );
 }

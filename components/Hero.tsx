@@ -136,7 +136,7 @@ export function Hero() {
 
         <a
           href="#latest-drop"
-          className="mt-8 flex flex-col items-center gap-2 text-chrome/35 transition-colors hover:text-chrome/60"
+          className="mt-8 flex flex-col items-center gap-2 pb-2 text-chrome/35 transition-colors hover:text-chrome/60"
           aria-label="Scroll to latest drop"
         >
           <span className="text-[10px] uppercase tracking-[0.3em]">Explore</span>

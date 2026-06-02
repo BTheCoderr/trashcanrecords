@@ -1,15 +1,26 @@
 /** Returns true when a link should render (active + valid URL). */
 export function isLinkVisible(item: {
   active?: boolean;
-  href: string;
+  href?: string;
 }): boolean {
   if (item.active !== true) return false;
-  const href = item.href.trim();
-  if (!href) return false;
-  if (/YOUR_|linktr\.ee\/YOUR|\/YOUR_/i.test(href)) return false;
+  if (item.href !== undefined) {
+    const href = item.href.trim();
+    if (!href) return false;
+    if (/YOUR_|linktr\.ee\/YOUR|\/YOUR_/i.test(href)) return false;
+  }
   return true;
 }
 
 export function isExternalHref(href: string): boolean {
   return /^https?:\/\//i.test(href.trim());
+}
+
+/** Set active: true when you have a real inbox ready to receive mail */
+export function isEmailActive(item: { active: boolean; address: string }): boolean {
+  if (item.active !== true) return false;
+  const address = item.address.trim();
+  if (!address) return false;
+  if (!address.includes("@")) return false;
+  return true;
 }

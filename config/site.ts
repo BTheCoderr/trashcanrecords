@@ -1,11 +1,11 @@
 /**
  * ═══════════════════════════════════════════════════════════════════
  *  TRASH CAN RECORDS — SITE CONFIG
- *  Set active: true only when a link is ready to show on the site.
+ *  Set active: true only when a link or email is ready to go live.
  * ═══════════════════════════════════════════════════════════════════
  */
 
-import { isLinkVisible } from "@/lib/links";
+import { isEmailActive, isLinkVisible } from "@/lib/links";
 
 export const brand = {
   artist: "BTheSound",
@@ -20,13 +20,11 @@ export const brandAssets = {
   logoMonogram: "/images/brand/logo-monogram.png",
 } as const;
 
-/** Platform URLs — pair each with active: true in link arrays below */
 export const links = {
   spotify:
     "https://open.spotify.com/artist/6XNtKuqpczRdXkcE94qZ3s?si=U1js5QKWQKGwImXB9daWwg&nd=1&dlsi=03d049e93c6a46ef",
   appleMusic: "https://music.apple.com/us/artist/bthesound/1896675646",
   youtubeChannel: "https://www.youtube.com/@trashcanrecords514",
-  /** Replace with your YouTube Music artist URL when ready */
   youtubeMusic: "https://music.youtube.com/search?q=BTheSound",
   instagram: "https://instagram.com/bthesound_",
   tiktok: "",
@@ -34,11 +32,24 @@ export const links = {
   threads: "",
   x: "",
   allPlatforms: "",
-  contactEmail: "contact@trashcanrecords.com",
-  bookingEmail: "booking@trashcanrecords.com",
   soundcloud: "",
   audiomack: "",
 } as const;
+
+/** Set active: true + real address when inboxes are live */
+export const emails = {
+  contact: {
+    address: "contact@trashcanrecords.com",
+    active: false,
+  },
+  booking: {
+    address: "booking@trashcanrecords.com",
+    active: false,
+  },
+} as const;
+
+export const showContactSection =
+  isEmailActive(emails.contact) || isEmailActive(emails.booking);
 
 export const youtubeVideos = {
   channel: links.youtubeChannel,
@@ -49,7 +60,7 @@ export const youtubeVideos = {
     embed: "https://www.youtube.com/embed/8ZvmMZhA0jA",
     thumbnail: "https://i.ytimg.com/vi/8ZvmMZhA0jA/hqdefault.jpg",
     title: "I Don't Say Much",
-    description: "Clay animation teaser",
+    description: "Official clay animation visual",
   },
   fullVisual: {
     active: false,
@@ -91,39 +102,25 @@ export const heroCTAs = {
   },
 } as const;
 
+/** Single source for the latest release + visual */
 export const latestDrop = {
   title: "I Don't Say Much",
   subtitle: "Official Clay Animation Visual",
   badge: "Latest Drop",
   thumbnail: youtubeVideos.short.thumbnail,
-  listen: {
-    spotify: links.spotify,
-    appleMusic: links.appleMusic,
-  },
   watch: {
     youtube: youtubeVideos.short.url,
     label: "Watch Visual",
   },
+  listen: {
+    spotify: links.spotify,
+    appleMusic: links.appleMusic,
+    spotifyLabel: "Spotify",
+    appleLabel: "Apple Music",
+  },
 } as const;
 
 export const latestVisual = latestDrop;
-
-export const featuredRelease = {
-  title: latestDrop.title,
-  subtitle: latestDrop.subtitle,
-  badge: latestDrop.badge,
-  coverImage: latestDrop.thumbnail,
-  links: {
-    youtube: latestDrop.watch.youtube,
-    spotify: latestDrop.listen.spotify,
-    appleMusic: latestDrop.listen.appleMusic,
-  },
-  buttonLabels: {
-    youtube: "Watch Visual",
-    spotify: "Spotify",
-    appleMusic: "Apple Music",
-  },
-} as const;
 
 const musicLinksAll = [
   {
@@ -173,32 +170,15 @@ const musicLinksAll = [
 
 export const musicLinks = musicLinksAll.filter(isLinkVisible);
 
+/** Channel only — visual lives in Latest Drop section */
 const videoLinksAll = [
-  {
-    id: "latest-visual",
-    title: "Latest Visual",
-    description: "I Don't Say Much — clay animation teaser",
-    href: youtubeVideos.short.url,
-    thumbnailUrl: youtubeVideos.short.thumbnail,
-    badge: "Teaser",
-    buttonLabel: "Watch Visual",
-    active: youtubeVideos.short.active,
-  },
   {
     id: "channel",
     title: "YouTube Channel",
-    description: "Subscribe for visuals & drops",
+    description: "Subscribe for visuals, shorts & drops",
     href: youtubeVideos.channel,
     buttonLabel: "Watch on YouTube",
     active: true,
-  },
-  {
-    id: "shorts",
-    title: "Shorts & Visualizers",
-    description: "Quick hits & loops",
-    href: `${youtubeVideos.channel}/shorts`,
-    buttonLabel: "Watch on YouTube",
-    active: false,
   },
 ] as const;
 
@@ -220,7 +200,8 @@ export const socialLinks = socialLinksAll.filter(isLinkVisible);
 export const merchItems = [
   {
     id: "tee-black",
-    title: "Trash Can Records Black Tee",
+    title: "Black Tee",
+    titleFull: "Trash Can Records Black Tee",
     price: "$35",
     image: "/images/merch/tee-black.png",
     shopUrl: "#join",
@@ -230,7 +211,8 @@ export const merchItems = [
   },
   {
     id: "tee-white",
-    title: "Trash Can Records White Tee",
+    title: "White Tee",
+    titleFull: "Trash Can Records White Tee",
     price: "$35",
     image: "/images/merch/tee-white.png",
     shopUrl: "#join",
@@ -240,19 +222,22 @@ export const merchItems = [
   },
 ] as const;
 
-export const footerLinks = [
-  { label: "Contact", href: "#contact" },
-  { label: "Booking", href: "#booking" },
-  { label: "Merch", href: "#merch" },
-  { label: "Music", href: "#music" },
+const footerLinksAll = [
+  { label: "Music", href: "#music", active: true },
+  { label: "Merch", href: "#merch", active: true },
+  { label: "Contact", href: "#contact", active: isEmailActive(emails.contact) },
+  { label: "Booking", href: "#booking", active: isEmailActive(emails.booking) },
 ] as const;
 
+export const footerLinks = footerLinksAll.filter(isLinkVisible);
+
 export const contactInquiry = {
+  active: isEmailActive(emails.contact),
   formName: "contact",
   eyebrow: "General",
   title: "Contact",
   subheading: "Press, partnerships, fan mail, and general questions.",
-  email: links.contactEmail,
+  email: emails.contact.address,
   emailLabel: "Email",
   submitLabel: "Send Message",
   successMessage: "Message sent. We'll get back to you soon.",
@@ -265,11 +250,12 @@ export const contactInquiry = {
 };
 
 export const bookingInquiry = {
+  active: isEmailActive(emails.booking),
   formName: "booking",
   eyebrow: "Live & business",
   title: "Booking",
   subheading: "Shows, features, collaborations, and appearance requests.",
-  email: links.bookingEmail,
+  email: emails.booking.address,
   emailLabel: "Email",
   submitLabel: "Submit Booking Request",
   successMessage: "Booking request received. We'll review and respond.",

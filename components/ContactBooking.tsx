@@ -1,4 +1,8 @@
-import { bookingInquiry, contactInquiry } from "@/config/site";
+import {
+  bookingInquiry,
+  contactInquiry,
+  showContactSection,
+} from "@/config/site";
 import { InquiryForm, type InquiryField } from "./InquiryForm";
 
 function InquiryCard({
@@ -56,8 +60,46 @@ function InquiryCard({
 }
 
 export function ContactBooking() {
+  if (!showContactSection) return null;
+
+  const cards = [
+    contactInquiry.active && (
+      <InquiryCard
+        key="contact"
+        id="contact"
+        eyebrow={contactInquiry.eyebrow}
+        title={contactInquiry.title}
+        subtitle={contactInquiry.subheading}
+        email={contactInquiry.email}
+        emailLabel={contactInquiry.emailLabel}
+        formName={contactInquiry.formName}
+        fields={contactInquiry.fields}
+        submitLabel={contactInquiry.submitLabel}
+        successMessage={contactInquiry.successMessage}
+      />
+    ),
+    bookingInquiry.active && (
+      <InquiryCard
+        key="booking"
+        id="booking"
+        eyebrow={bookingInquiry.eyebrow}
+        title={bookingInquiry.title}
+        subtitle={bookingInquiry.subheading}
+        email={bookingInquiry.email}
+        emailLabel={bookingInquiry.emailLabel}
+        formName={bookingInquiry.formName}
+        fields={bookingInquiry.fields}
+        submitLabel={bookingInquiry.submitLabel}
+        successMessage={bookingInquiry.successMessage}
+      />
+    ),
+  ].filter(Boolean);
+
   return (
-    <section className="relative px-4 py-16 md:py-20" aria-labelledby="contact-booking-heading">
+    <section
+      className="section-space"
+      aria-labelledby="contact-booking-heading"
+    >
       <div className="mx-auto max-w-4xl">
         <header className="mb-10 text-center">
           <p className="mb-3 font-sans text-[10px] font-medium uppercase tracking-[0.35em] text-chrome/50">
@@ -69,37 +111,16 @@ export function ContactBooking() {
           >
             Contact & Booking
           </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm text-chrome/70">
-            General inquiries and live booking requests for BTheSound & Trash Can Records.
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-chrome/70">
+            General inquiries and live booking for BTheSound & Trash Can Records.
           </p>
           <div className="section-divider mx-auto mt-6" />
         </header>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          <InquiryCard
-            id="contact"
-            eyebrow={contactInquiry.eyebrow}
-            title={contactInquiry.title}
-            subtitle={contactInquiry.subheading}
-            email={contactInquiry.email}
-            emailLabel={contactInquiry.emailLabel}
-            formName={contactInquiry.formName}
-            fields={contactInquiry.fields}
-            submitLabel={contactInquiry.submitLabel}
-            successMessage={contactInquiry.successMessage}
-          />
-          <InquiryCard
-            id="booking"
-            eyebrow={bookingInquiry.eyebrow}
-            title={bookingInquiry.title}
-            subtitle={bookingInquiry.subheading}
-            email={bookingInquiry.email}
-            emailLabel={bookingInquiry.emailLabel}
-            formName={bookingInquiry.formName}
-            fields={bookingInquiry.fields}
-            submitLabel={bookingInquiry.submitLabel}
-            successMessage={bookingInquiry.successMessage}
-          />
+        <div
+          className={`grid gap-6 ${cards.length > 1 ? "md:grid-cols-2" : "max-w-xl mx-auto"}`}
+        >
+          {cards}
         </div>
       </div>
     </section>
