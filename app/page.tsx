@@ -6,6 +6,7 @@ import { VideoCard } from "@/components/VideoCard";
 import { MerchCard } from "@/components/MerchCard";
 import { SocialLinks } from "@/components/SocialLinks";
 import { EmailSignup } from "@/components/EmailSignup";
+import { ContactBooking } from "@/components/ContactBooking";
 import { Footer } from "@/components/Footer";
 import { SectionHeader } from "@/components/SectionHeader";
 import {
@@ -120,6 +121,8 @@ export default function Home() {
           <EmailSignup />
         </div>
       </section>
+
+      <ContactBooking />
 
       <Footer />
     </main>

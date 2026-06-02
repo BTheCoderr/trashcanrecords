@@ -33,6 +33,7 @@ export const links = {
   threads: "",
   x: "",
   allPlatforms: "",
+  /** Update to your real inbox — also used for mailto fallbacks */
   contactEmail: "contact@trashcanrecords.com",
   bookingEmail: "booking@trashcanrecords.com",
   soundcloud: "",
@@ -233,11 +234,49 @@ export const merchItems = [
 ] as const;
 
 export const footerLinks = [
-  { label: "Contact", href: `mailto:${links.contactEmail}` },
-  { label: "Booking", href: `mailto:${links.bookingEmail}` },
+  { label: "Contact", href: "#contact" },
+  { label: "Booking", href: "#booking" },
   { label: "Merch", href: "#merch" },
   { label: "Music", href: "#music" },
 ] as const;
+
+/** Contact form — submissions go to Netlify Forms (dashboard → Forms) */
+export const contactInquiry = {
+  formName: "contact",
+  eyebrow: "General",
+  title: "Contact",
+  subheading: "Press, partnerships, fan mail, and general questions.",
+  email: links.contactEmail,
+  emailLabel: "Email",
+  submitLabel: "Send Message",
+  successMessage: "Message sent. We'll get back to you soon.",
+  fields: [
+    { name: "name", label: "Name", type: "text" as const, placeholder: "Your name", required: true },
+    { name: "email", label: "Email", type: "email" as const, placeholder: "you@email.com", required: true },
+    { name: "subject", label: "Subject", type: "text" as const, placeholder: "What's this about?", required: true },
+    { name: "message", label: "Message", type: "textarea" as const, placeholder: "Your message…", required: true, rows: 5 },
+  ],
+};
+
+/** Booking form — live shows, features, appearances */
+export const bookingInquiry = {
+  formName: "booking",
+  eyebrow: "Live & business",
+  title: "Booking",
+  subheading: "Shows, features, collaborations, and appearance requests.",
+  email: links.bookingEmail,
+  emailLabel: "Email",
+  submitLabel: "Submit Booking Request",
+  successMessage: "Booking request received. We'll review and respond.",
+  fields: [
+    { name: "name", label: "Name", type: "text" as const, placeholder: "Your name", required: true },
+    { name: "email", label: "Email", type: "email" as const, placeholder: "you@email.com", required: true },
+    { name: "organization", label: "Venue / Organization", type: "text" as const, placeholder: "Club, festival, brand, etc.", required: true },
+    { name: "event-date", label: "Event Date", type: "text" as const, placeholder: "e.g. June 15, 2026 or TBD", required: false },
+    { name: "location", label: "Location", type: "text" as const, placeholder: "City, state / country", required: false },
+    { name: "details", label: "Details", type: "textarea" as const, placeholder: "Set type, budget, audience size, other details…", required: true, rows: 5 },
+  ],
+};
 
 export const emailSignup = {
   heading: "Join the Trash Can Records list",
