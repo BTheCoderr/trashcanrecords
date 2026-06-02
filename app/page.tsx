@@ -63,9 +63,9 @@ export default function Home() {
           <SectionHeader
             eyebrow="More to watch"
             title="Visuals"
-            subtitle="Clay animation, shorts, and the full channel."
+            subtitle="Clay animation teaser and the full channel."
           />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2">
             {videoLinks.map((video) => (
               <VideoCard
                 key={video.id}

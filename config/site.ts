@@ -185,14 +185,14 @@ const videoLinksAll = [
     buttonLabel: "Watch on YouTube",
     active: true,
   },
+  /** Enable when you have a separate Shorts playlist or visual — not the same as latest-visual */
   {
     id: "shorts",
     title: "Shorts & Visualizers",
-    description: "Clay teaser & short-form visuals",
-    href: youtubeVideos.short.url,
-    embedUrl: youtubeVideos.short.embed,
-    buttonLabel: "Watch Clay Visual",
-    active: youtubeVideos.short.active,
+    description: "Quick hits & loops",
+    href: `${youtubeVideos.channel}/shorts`,
+    buttonLabel: "Watch on YouTube",
+    active: false,
   },
 ] as const;
 
@@ -215,7 +215,7 @@ export const merchItems = [
   {
     id: "tee-black",
     title: "Trash Can Records Black Tee",
-    price: "$32",
+    price: "$35",
     image: "/images/merch/tee-black.png",
     shopUrl: "#join",
     available: false,
@@ -224,7 +224,7 @@ export const merchItems = [
   {
     id: "tee-white",
     title: "Trash Can Records White Tee",
-    price: "$32",
+    price: "$35",
     image: "/images/merch/tee-white.png",
     shopUrl: "#join",
     available: false,
