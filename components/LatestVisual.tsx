@@ -1,4 +1,4 @@
-import { latestVisual } from "@/config/site";
+import { latestDrop } from "@/config/site";
 import { LinkButton } from "./LinkButton";
 import {
   AppleMusicIcon,
@@ -6,12 +6,13 @@ import {
   YouTubeIcon,
 } from "./icons/PlatformIcons";
 
-/** Stream / platform links for the latest drop — video plays in opening intro */
+/** Latest drop — listen on Spotify/Apple, watch clay visual on YouTube */
 export function LatestVisual() {
   return (
     <section
+      id="latest-drop"
       className="relative px-4 py-12 md:py-16"
-      aria-labelledby="latest-visual-links"
+      aria-labelledby="latest-drop-heading"
     >
       <div className="mx-auto max-w-3xl">
         <header className="mb-6 text-center">
@@ -19,41 +20,41 @@ export function LatestVisual() {
             Latest Drop
           </p>
           <h2
-            id="latest-visual-links"
+            id="latest-drop-heading"
             className="font-display text-xl font-medium tracking-wide text-pearl md:text-2xl"
           >
-            {latestVisual.title}
+            {latestDrop.title}
           </h2>
           <p className="mx-auto mt-2 max-w-md text-sm text-chrome/70">
-            {latestVisual.subtitle}
+            {latestDrop.subtitle}
           </p>
           <a
-            href="#latest-visual"
+            href="#hub"
             className="mt-3 inline-block text-xs uppercase tracking-[0.2em] text-chrome/50 transition-colors hover:text-pearl"
           >
-            ↑ Watch opening visual
+            ↑ Back to hero
           </a>
         </header>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
           <LinkButton
-            href={latestVisual.youtube}
+            href={latestDrop.watch.youtube}
             variant="primary"
             size="md"
             icon={<YouTubeIcon className="h-4 w-4 text-void" />}
           >
-            YouTube Channel
+            {latestDrop.watch.label}
           </LinkButton>
           <LinkButton
-            href={latestVisual.spotify}
+            href={latestDrop.listen.spotify}
             variant="secondary"
             size="md"
             icon={<SpotifyIcon className="h-4 w-4" />}
           >
-            Spotify
+            Listen on Spotify
           </LinkButton>
           <LinkButton
-            href={latestVisual.appleMusic}
+            href={latestDrop.listen.appleMusic}
             variant="outline"
             size="md"
             icon={<AppleMusicIcon className="h-4 w-4" />}

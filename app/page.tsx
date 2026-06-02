@@ -1,7 +1,5 @@
-import { OpeningIntro } from "@/components/OpeningIntro";
 import { Hero } from "@/components/Hero";
 import { LatestVisual } from "@/components/LatestVisual";
-import { BrandBanner } from "@/components/BrandBanner";
 import { ReleaseCard } from "@/components/ReleaseCard";
 import { MusicLinkCard } from "@/components/MusicLinkCard";
 import { VideoCard } from "@/components/VideoCard";
@@ -24,7 +22,6 @@ export default function Home() {
     <main className="relative min-h-screen overflow-x-hidden">
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_100%_80%_at_50%_0%,rgba(30,30,30,0.5),transparent_50%)]" />
 
-      <OpeningIntro />
       <Hero />
       <LatestVisual />
 
@@ -35,11 +32,10 @@ export default function Home() {
             subtitle={featuredRelease.subtitle}
             coverImage={featuredRelease.coverImage}
             links={featuredRelease.links}
+            buttonLabels={featuredRelease.buttonLabels}
           />
         </div>
       </section>
-
-      <BrandBanner />
 
       <section id="music" className="relative px-4 py-16 md:py-20">
         <div className="mx-auto max-w-lg">
@@ -77,7 +73,8 @@ export default function Home() {
                 description={video.description}
                 href={video.href}
                 badge={"badge" in video ? video.badge : undefined}
-                internal={"internal" in video && video.internal}
+                embedUrl={"embedUrl" in video ? video.embedUrl : undefined}
+                buttonLabel={"buttonLabel" in video ? video.buttonLabel : undefined}
               />
             ))}
           </div>

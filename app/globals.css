@@ -38,6 +38,29 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
     pointer-events: none;
   }
+
+  .hero-light-sweep {
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      transparent 38%,
+      rgba(255, 255, 255, 0.04) 48%,
+      rgba(255, 255, 255, 0.09) 50%,
+      rgba(255, 255, 255, 0.04) 52%,
+      transparent 62%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: heroSweep 9s ease-in-out infinite;
+  }
+
+  .hero-smoke-glow {
+    background: radial-gradient(
+      ellipse 70% 50% at 50% 40%,
+      rgba(200, 200, 200, 0.07),
+      transparent 70%
+    );
+  }
 }
 
 @layer utilities {
@@ -68,5 +91,15 @@
 
   .animate-bounce-subtle {
     animation: bounce-subtle 2s ease-in-out infinite;
+  }
+
+  @keyframes heroSweep {
+    0%,
+    100% {
+      background-position: 200% 0;
+    }
+    50% {
+      background-position: -100% 0;
+    }
   }
 }
