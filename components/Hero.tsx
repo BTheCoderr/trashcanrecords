@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { brand, hero, heroCTAs } from "@/config/site";
 import { LinkButton } from "./LinkButton";
-import { MusicNoteIcon } from "./icons/PlatformIcons";
+import { MusicNoteIcon, PlayIcon } from "./icons/PlatformIcons";
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -23,12 +23,11 @@ export function Hero() {
       className="relative flex min-h-[100dvh] w-full flex-col overflow-hidden bg-void"
       aria-label={`${brand.label} — ${brand.artist}`}
     >
-      {/* Background: video or cinematic still */}
       <div className="absolute inset-0">
         {showVideo ? (
           <video
             ref={videoRef}
-            className="h-full w-full object-cover object-center scale-[1.02] sm:object-[center_35%]"
+            className="h-full w-full scale-[1.02] object-cover object-center sm:object-[center_35%]"
             autoPlay={hero.autoplay}
             muted={isMuted}
             loop={hero.loop}
@@ -54,7 +53,6 @@ export function Hero() {
         )}
       </div>
 
-      {/* Cinematic overlays */}
       <div className="noise-overlay absolute inset-0 z-[1] opacity-20" />
       <div className="hero-smoke-glow pointer-events-none absolute inset-0 z-[2]" />
       <div className="hero-light-sweep pointer-events-none absolute inset-0 z-[2]" />
@@ -62,14 +60,12 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-b from-void/50 via-void/10 to-void" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-[55%] bg-gradient-to-t from-void via-void/85 to-transparent sm:h-[48%]" />
 
-      {/* Badge */}
       {hero.badge && (
         <span className="absolute left-4 top-4 z-20 rounded-full border border-white/15 bg-void/75 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.2em] text-pearl backdrop-blur-md sm:left-6 sm:top-6">
           {hero.badge}
         </span>
       )}
 
-      {/* Sound toggle */}
       {showVideo && (
         <button
           type="button"
@@ -88,7 +84,6 @@ export function Hero() {
         </button>
       )}
 
-      {/* Foreground: artist + CTAs */}
       <div className="relative z-10 mt-auto flex w-full flex-col items-center px-4 pb-10 pt-[42vh] text-center sm:px-6 sm:pb-12 sm:pt-[48vh] md:pt-[50vh]">
         <p className="mb-2 font-sans text-[10px] font-medium uppercase tracking-[0.4em] text-chrome/55">
           {brand.label}
@@ -103,30 +98,46 @@ export function Hero() {
         </p>
 
         <div className="mt-8 flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
-          <LinkButton
-            href={heroCTAs.listenNow}
-            variant="primary"
-            size="lg"
-            icon={<MusicNoteIcon className="h-5 w-5 text-void" />}
-            className="w-full justify-center sm:w-auto"
-          >
-            Listen Now
-          </LinkButton>
-          <LinkButton
-            href={heroCTAs.shopMerch}
-            variant="secondary"
-            size="lg"
-            external={false}
-            className="w-full justify-center sm:w-auto"
-          >
-            Shop Merch
-          </LinkButton>
+          {heroCTAs.watchVisual.active && (
+            <LinkButton
+              href={heroCTAs.watchVisual.href}
+              variant="primary"
+              size="lg"
+              icon={<PlayIcon className="h-5 w-5 text-void" />}
+              className="w-full justify-center sm:w-auto"
+            >
+              {heroCTAs.watchVisual.label}
+            </LinkButton>
+          )}
+          {heroCTAs.listenNow.active && (
+            <LinkButton
+              href={heroCTAs.listenNow.href}
+              variant="secondary"
+              size="lg"
+              icon={<MusicNoteIcon className="h-5 w-5" />}
+              className="w-full justify-center sm:w-auto"
+            >
+              {heroCTAs.listenNow.label}
+            </LinkButton>
+          )}
         </div>
 
+        {heroCTAs.shopMerch.active && (
+          <LinkButton
+            href={heroCTAs.shopMerch.href}
+            variant="ghost"
+            size="sm"
+            external={false}
+            className="mt-5"
+          >
+            {heroCTAs.shopMerch.label}
+          </LinkButton>
+        )}
+
         <a
-          href="#music"
-          className="mt-10 flex flex-col items-center gap-2 text-chrome/35 transition-colors hover:text-chrome/60"
-          aria-label="Scroll to music"
+          href="#latest-drop"
+          className="mt-8 flex flex-col items-center gap-2 text-chrome/35 transition-colors hover:text-chrome/60"
+          aria-label="Scroll to latest drop"
         >
           <span className="text-[10px] uppercase tracking-[0.3em]">Explore</span>
           <div className="h-8 w-px bg-gradient-to-b from-chrome/45 to-transparent animate-shimmer" />

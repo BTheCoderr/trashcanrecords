@@ -1,5 +1,4 @@
 import { Hero } from "@/components/Hero";
-import { LatestVisual } from "@/components/LatestVisual";
 import { ReleaseCard } from "@/components/ReleaseCard";
 import { MusicLinkCard } from "@/components/MusicLinkCard";
 import { VideoCard } from "@/components/VideoCard";
@@ -24,13 +23,23 @@ export default function Home() {
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_100%_80%_at_50%_0%,rgba(30,30,30,0.5),transparent_50%)]" />
 
       <Hero />
-      <LatestVisual />
 
-      <section className="relative px-4 py-12 md:py-16" aria-labelledby="featured-release">
-        <div className="mx-auto max-w-3xl">
+      <section
+        id="latest-drop"
+        className="relative px-4 py-12 md:py-20"
+        aria-labelledby="latest-drop-heading"
+      >
+        <div className="mx-auto max-w-4xl">
+          <SectionHeader
+            eyebrow="New music"
+            title="Latest Drop"
+            subtitle="Stream it or watch the clay visual."
+            id="latest-drop-heading"
+          />
           <ReleaseCard
             title={featuredRelease.title}
             subtitle={featuredRelease.subtitle}
+            badge={featuredRelease.badge}
             coverImage={featuredRelease.coverImage}
             links={featuredRelease.links}
             buttonLabels={featuredRelease.buttonLabels}
@@ -74,7 +83,7 @@ export default function Home() {
                 description={video.description}
                 href={video.href}
                 badge={"badge" in video ? video.badge : undefined}
-                embedUrl={"embedUrl" in video ? video.embedUrl : undefined}
+                thumbnailUrl={"thumbnailUrl" in video ? video.thumbnailUrl : undefined}
                 buttonLabel={"buttonLabel" in video ? video.buttonLabel : undefined}
               />
             ))}
@@ -90,17 +99,19 @@ export default function Home() {
             subtitle="Trash Can Records tees — dropping soon."
           />
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {merchItems.map((item) => (
-              <MerchCard
-                key={item.id}
-                title={item.title}
-                price={item.price}
-                image={item.image}
-                shopUrl={item.shopUrl}
-                available={item.available}
-                notifyLabel={"notifyLabel" in item ? item.notifyLabel : "Notify Me"}
-              />
-            ))}
+            {merchItems
+              .filter((item) => item.active)
+              .map((item) => (
+                <MerchCard
+                  key={item.id}
+                  title={item.title}
+                  price={item.price}
+                  image={item.image}
+                  shopUrl={item.shopUrl}
+                  available={item.available}
+                  notifyLabel={"notifyLabel" in item ? item.notifyLabel : "Notify Me"}
+                />
+              ))}
           </div>
         </div>
       </section>

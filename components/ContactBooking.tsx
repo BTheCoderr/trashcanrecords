@@ -38,6 +38,8 @@ function InquiryCard({
         <p className="mt-2 text-sm text-chrome/65">{subtitle}</p>
         <a
           href={`mailto:${email}`}
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-3 inline-block text-xs text-chrome/50 transition-colors hover:text-pearl"
         >
           {emailLabel}: {email}

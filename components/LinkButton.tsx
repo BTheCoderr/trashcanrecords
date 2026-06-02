@@ -1,3 +1,4 @@
+import { isExternalHref } from "@/lib/links";
 import { ExternalIcon } from "./icons/PlatformIcons";
 
 type LinkButtonProps = {
@@ -16,7 +17,7 @@ const variants = {
   secondary:
     "bg-smoke/80 text-pearl border border-white/10 backdrop-blur-sm hover:bg-ash hover:border-white/20",
   ghost:
-    "bg-transparent text-chrome hover:text-pearl hover:bg-white/5 border border-transparent",
+    "bg-transparent text-chrome hover:text-pearl hover:bg-white/5 border border-white/10",
   outline:
     "bg-transparent text-pearl border border-white/15 hover:border-white/30 hover:bg-white/5",
 };
@@ -32,15 +33,17 @@ export function LinkButton({
   children,
   variant = "primary",
   size = "md",
-  external = true,
+  external,
   className = "",
   icon,
 }: LinkButtonProps) {
+  const openExternal = external ?? isExternalHref(href);
+
   return (
     <a
       href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noopener noreferrer" : undefined}
+      target={openExternal ? "_blank" : undefined}
+      rel={openExternal ? "noopener noreferrer" : undefined}
       className={`
         inline-flex items-center justify-center
         transition-all duration-300 ease-out
@@ -52,8 +55,8 @@ export function LinkButton({
     >
       {icon && <span className="shrink-0 opacity-90">{icon}</span>}
       <span>{children}</span>
-      {external && variant !== "primary" && (
-        <ExternalIcon className="w-3.5 h-3.5 opacity-40" />
+      {openExternal && (
+        <ExternalIcon className="h-3.5 w-3.5 opacity-40" />
       )}
     </a>
   );

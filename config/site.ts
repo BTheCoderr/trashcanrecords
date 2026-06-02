@@ -1,7 +1,7 @@
 /**
  * ═══════════════════════════════════════════════════════════════════
  *  TRASH CAN RECORDS — SITE CONFIG
- *  Edit this file to update links, text, prices, and featured content.
+ *  Set active: true only when a link is ready to show on the site.
  * ═══════════════════════════════════════════════════════════════════
  */
 
@@ -20,53 +20,48 @@ export const brandAssets = {
   logoMonogram: "/images/brand/logo-monogram.png",
 } as const;
 
-/** Live platform URLs */
+/** Platform URLs — pair each with active: true in link arrays below */
 export const links = {
   spotify:
     "https://open.spotify.com/artist/6XNtKuqpczRdXkcE94qZ3s?si=U1js5QKWQKGwImXB9daWwg&nd=1&dlsi=03d049e93c6a46ef",
   appleMusic: "https://music.apple.com/us/artist/bthesound/1896675646",
   youtubeChannel: "https://www.youtube.com/@trashcanrecords514",
+  /** Replace with your YouTube Music artist URL when ready */
+  youtubeMusic: "https://music.youtube.com/search?q=BTheSound",
   instagram: "https://instagram.com/bthesound_",
-  /** Set active: true + real URL when ready */
   tiktok: "",
   facebook: "",
   threads: "",
   x: "",
   allPlatforms: "",
-  /** Update to your real inbox — also used for mailto fallbacks */
   contactEmail: "contact@trashcanrecords.com",
   bookingEmail: "booking@trashcanrecords.com",
   soundcloud: "",
   audiomack: "",
-  youtubeMusic: "",
 } as const;
 
-/**
- * YouTube visuals — short teaser vs full clay animation (add later).
- */
 export const youtubeVideos = {
   channel: links.youtubeChannel,
-  /** Active now: "I Don't Say Much" clay short / teaser */
   short: {
     active: true,
     id: "8ZvmMZhA0jA",
     url: "https://youtu.be/8ZvmMZhA0jA?si=IC3KGjyIWGEOCwqZ",
     embed: "https://www.youtube.com/embed/8ZvmMZhA0jA",
+    thumbnail: "https://i.ytimg.com/vi/8ZvmMZhA0jA/hqdefault.jpg",
     title: "I Don't Say Much",
-    description: "Clay animation teaser — watch on YouTube",
+    description: "Clay animation teaser",
   },
-  /** Full official clay visual — paste URL + set active: true when live */
   fullVisual: {
     active: false,
     id: "",
     url: "",
     embed: "",
+    thumbnail: "",
     title: "I Don't Say Much",
     description: "Official clay animation visual",
   },
 } as const;
 
-/** Hero background video file (separate from YouTube) */
 export const hero = {
   videoSrc: "/videos/latest-visual.mp4",
   videoEnabled: true,
@@ -79,48 +74,57 @@ export const hero = {
 } as const;
 
 export const heroCTAs = {
-  listenNow: links.spotify,
-  shopMerch: "#merch",
+  watchVisual: {
+    label: "Watch Visual",
+    href: youtubeVideos.short.url,
+    active: true,
+  },
+  listenNow: {
+    label: "Listen Now",
+    href: links.spotify,
+    active: true,
+  },
+  shopMerch: {
+    label: "Shop Merch",
+    href: "#merch",
+    active: true,
+  },
 } as const;
 
-/** Latest drop — listening + watch links */
 export const latestDrop = {
   title: "I Don't Say Much",
   subtitle: "Official Clay Animation Visual",
-  badge: hero.badge,
+  badge: "Latest Drop",
+  thumbnail: youtubeVideos.short.thumbnail,
   listen: {
     spotify: links.spotify,
     appleMusic: links.appleMusic,
   },
   watch: {
-    /** Uses short teaser until fullVisual is active */
-    youtube: youtubeVideos.short.active
-      ? youtubeVideos.short.url
-      : youtubeVideos.fullVisual.url || links.youtubeChannel,
-    label: "Watch on YouTube",
+    youtube: youtubeVideos.short.url,
+    label: "Watch Visual",
   },
 } as const;
 
-/** Alias for older imports / hot-reload cache */
 export const latestVisual = latestDrop;
 
 export const featuredRelease = {
   title: latestDrop.title,
   subtitle: latestDrop.subtitle,
-  coverImage: undefined as string | undefined,
+  badge: latestDrop.badge,
+  coverImage: latestDrop.thumbnail,
   links: {
     youtube: latestDrop.watch.youtube,
     spotify: latestDrop.listen.spotify,
     appleMusic: latestDrop.listen.appleMusic,
   },
   buttonLabels: {
-    youtube: "Watch on YouTube",
-    spotify: "Listen on Spotify",
+    youtube: "Watch Visual",
+    spotify: "Spotify",
     appleMusic: "Apple Music",
   },
 } as const;
 
-/** All music platforms — set active: true and href when ready */
 const musicLinksAll = [
   {
     id: "spotify",
@@ -141,7 +145,7 @@ const musicLinksAll = [
     name: "YouTube Music",
     href: links.youtubeMusic,
     description: "Stream & follow",
-    active: false,
+    active: true,
   },
   {
     id: "soundcloud",
@@ -169,16 +173,15 @@ const musicLinksAll = [
 
 export const musicLinks = musicLinksAll.filter(isLinkVisible);
 
-/** Visuals section cards */
 const videoLinksAll = [
   {
     id: "latest-visual",
     title: "Latest Visual",
     description: "I Don't Say Much — clay animation teaser",
     href: youtubeVideos.short.url,
-    embedUrl: youtubeVideos.short.embed,
+    thumbnailUrl: youtubeVideos.short.thumbnail,
     badge: "Teaser",
-    buttonLabel: "Watch Clay Visual",
+    buttonLabel: "Watch Visual",
     active: youtubeVideos.short.active,
   },
   {
@@ -189,7 +192,6 @@ const videoLinksAll = [
     buttonLabel: "Watch on YouTube",
     active: true,
   },
-  /** Enable when you have a separate Shorts playlist or visual — not the same as latest-visual */
   {
     id: "shorts",
     title: "Shorts & Visualizers",
@@ -224,6 +226,7 @@ export const merchItems = [
     shopUrl: "#join",
     available: false,
     notifyLabel: "Notify Me",
+    active: true,
   },
   {
     id: "tee-white",
@@ -233,6 +236,7 @@ export const merchItems = [
     shopUrl: "#join",
     available: false,
     notifyLabel: "Notify Me",
+    active: true,
   },
 ] as const;
 
@@ -243,7 +247,6 @@ export const footerLinks = [
   { label: "Music", href: "#music" },
 ] as const;
 
-/** Contact form — submissions go to Netlify Forms (dashboard → Forms) */
 export const contactInquiry = {
   formName: "contact",
   eyebrow: "General",
@@ -261,7 +264,6 @@ export const contactInquiry = {
   ],
 };
 
-/** Booking form — live shows, features, appearances */
 export const bookingInquiry = {
   formName: "booking",
   eyebrow: "Live & business",
@@ -286,4 +288,5 @@ export const emailSignup = {
   subheading: "First access to drops, visuals, and tour dates.",
   placeholder: "you@email.com",
   successMessage: "You're on the list. We'll be in touch.",
+  active: true,
 } as const;
