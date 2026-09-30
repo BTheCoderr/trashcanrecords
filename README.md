@@ -1,5 +1,11 @@
 # BTheSound × Trash Can Records — Fan Hub
 
+<!-- repo-intro:start -->
+**Project snapshot:** BTheSound × Trash Can Records is a premium fan hub and link-in-bio experience that brings music, visuals, merch, social destinations, and booking/contact paths into one branded page.
+
+**What it demonstrates:** Next.js · React · Tailwind CSS · media presentation · centralized content configuration.
+<!-- repo-intro:end -->
+
 Premium link-in-bio landing page. Next.js, React, Tailwind CSS.
 
 ## Quick start
